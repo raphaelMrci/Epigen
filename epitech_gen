@@ -1,0 +1,39 @@
+#!/usr/bin/bash
+
+if [ $# -lt 1 ]; then
+    echo "Bad arguments: you must specify project name"
+    exit 1
+fi
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+        -h | --help)
+            print_help=true
+            ;;
+        -g | --csfml)
+            csfml_project=true
+            ;;
+        -il | --ignore-lib)
+            ignore-lib=true
+            ;;
+        *)
+            NAME=$arg
+            ;;
+    esac
+    shift
+done
+
+if [ "$print_help" ]; then
+    echo "USAGE:"
+    echo "  epitech-gen NAME [OPTIONS]"
+    echo
+    echo "DESCRIPTION:"
+    echo "  NAME    name for binary delivery file. You can edit project path too"
+    echo
+    echo "OPTIONS:"
+    echo "  -h, --help          print help"
+    echo "  -g, --csfml         create a csfml project"
+    echo "  -il, --ignore-lib   ignore lib including"
+    exit 0
+fi
