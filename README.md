@@ -1,9 +1,16 @@
 # epitech-project-generator
 
 Simple usage program to start any Epitech project.
+Improve your efficiency, execute just this program, and your project template will be generated, for any epitech project.
 
-## To Do:
+## MENU
 
-    - Python project generation
+\*[Installation](#installation)
+
+## INSTALLATION
+
+## TO DO:
+
+    - '-p': Python project generation
     - .gitattribute
-    - CSFML project generation
+    - '-c' or '--csfml': CSFML project generation
