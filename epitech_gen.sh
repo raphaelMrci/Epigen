@@ -32,8 +32,16 @@ while [ $# -ne 0 ]; do
         -v | --version)
             print_version=true
             ;;
+        -l)
+            set_lib=true
+            ;;
         *)
-            NAME=$arg
+            if [ set_lib ]; then
+                echo $arg > $HOME/.your_lib
+                set_lib=false
+            else
+                NAME=$arg
+            fi
             ;;
     esac
     shift
@@ -70,12 +78,12 @@ NAME    =   $NAME
 cat "/usr/local/lib/epitech-gen/makefile_file" >> /tmp/epitech-gen/tmp/Makefile
 
 # Lib creation #
-mkdir /tmp/epitech-gen/tmp/lib/my
-# cp -r "libmy/" "."
-# mv libmy/* "."
-# rm -r libmy
-# make
-# make clean
+if [ -f $HOME/.your_lib ]; then
+    mkdir /tmp/epitech-gen/tmp/lib/my
+    cp -r $(cat $HOME/.your_lib) /tmp/epitech-gen/tmp/lib/my
+else
+    echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epitech-gen -l lib_path'. Try with -h for help."
+fi
 echo "/*
 ** EPITECH PROJECT, 2022
 ** $NAME
@@ -103,6 +111,7 @@ OPTIONS:
     -g, --csfml         create a csfml project
     -il, --ignore-lib   ignore lib including
     -v, --version       show current version
+    -l                  define your lib path
 "
     exit 0
 fi
