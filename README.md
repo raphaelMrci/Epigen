@@ -20,12 +20,12 @@ Currently, no installation process available. Work in progress.
 
 ## OPTIONS
 
--   '-h' or '--help': print help
--   '-v or '--version': print current version
+-   `-h` or `--help`: print help
+-   `-v` or `--version`: print current version
 
 ## TO DO
 
-    - '-p': Python project generation
-    - .gitattribute
-    - '-c' or '--csfml': CSFML project generation
-    - '-u' or '--update':
+-   `-p`: Python project generation
+-   .gitattribute
+-   `-c` or `--csfml`: CSFML project generation
+-   `-u` or `--update`: update epitech-project-generator
