@@ -5,12 +5,27 @@ Improve your efficiency, execute just this program, and your project template wi
 
 ## MENU
 
-\*[Installation](#installation)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Options](#options)
+    -   [To Do](#to-do)
 
 ## INSTALLATION
 
-## TO DO:
+Currently, no installation process available. Work in progress.
+
+## USAGE
+
+`epitech-gen project_name [OPTIONS]`
+
+## OPTIONS
+
+-   '-h' or '--help': print help
+-   '-v or '--version': print current version
+
+## TO DO
 
     - '-p': Python project generation
     - .gitattribute
     - '-c' or '--csfml': CSFML project generation
+    - '-u' or '--update':
