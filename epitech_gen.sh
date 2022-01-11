@@ -1,7 +1,16 @@
 #!/usr/bin/bash
 
-rm -r tmp/
-mkdir tmp
+VERSION=0.1
+
+# Clean tmp
+clean_tmp () {
+    [ -d /tmp/epitech-gen/tmp ] && rm -r /tmp/epitech-gen/tmp
+    mkdir /tmp/epitech-gen/tmp
+}
+
+[ -d /tmp/epitech-gen ] || mkdir /tmp/epitech-gen
+
+clean_tmp
 
 if [ $# -lt 1 ]; then
     echo "Project name: "
@@ -30,15 +39,25 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-cd tmp
-touch .gitignore
-echo $NAME > .gitignore
-cat "../gitignore_file" >> .gitignore
-mkdir src/
-mkdir tests/
-mkdir inc/
-mkdir lib/
-touch Makefile
+if [ $print_version ]; then
+    RED='\033[0;31m'
+    NC='\033[0m' # No Color
+    GREEN='\033[0;32m'
+    echo -e "Current version: ${GREEN}$VERSION${NC}"
+    echo Hum.
+fi
+
+# Create all folders #
+mkdir /tmp/epitech-gen/tmp/src/
+mkdir /tmp/epitech-gen/tmp/tests/
+mkdir /tmp/epitech-gen/tmp/inc/
+mkdir /tmp/epitech-gen/tmp/lib/
+
+# .gitignore creation #
+echo $NAME > /tmp/epitech-gen/tmp/.gitignore
+cat "gitignore_file" >> /tmp/epitech-gen/tmp/.gitignore
+
+# Makefile creation #
 echo "##
 ## EPITECH PROJECT, 2022
 ## $NAME
@@ -47,18 +66,16 @@ echo "##
 ##
 
 NAME    =   $NAME
-" > Makefile
-cat "../makefile_file" >> Makefile
+" > /tmp/epitech-gen/tmp/Makefile
+cat "/usr/local/lib/epitech-gen/makefile_file" >> /tmp/epitech-gen/tmp/Makefile
 
-mkdir lib/my
-cd lib/my
-cp -r "../../../libmy/" "."
-mv libmy/* "."
-rm -r libmy
-make
-make clean
-cd ../../inc
-touch $NAME.h
+# Lib creation #
+mkdir /tmp/epitech-gen/tmp/lib/my
+# cp -r "libmy/" "."
+# mv libmy/* "."
+# rm -r libmy
+# make
+# make clean
 echo "/*
 ** EPITECH PROJECT, 2022
 ** $NAME
@@ -70,9 +87,9 @@ echo "/*
     #define ${NAME^^}_H_
 
 #endif /*   !${NAME^^}_H_   */
-" > $NAME.h
+" > /tmp/epitech-gen/tmp/inc/$NAME.h
 
-
+cp -r /tmp/epitech-gen/tmp/* $(pwd)
 
 if [ "$print_help" ]; then
     echo "USAGE:
@@ -85,6 +102,9 @@ OPTIONS:
     -h, --help          print help
     -g, --csfml         create a csfml project
     -il, --ignore-lib   ignore lib including
-    -v, --version       show current version"
+    -v, --version       show current version
+"
     exit 0
 fi
+
+clean_tmp
