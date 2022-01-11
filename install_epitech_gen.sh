@@ -39,7 +39,7 @@ if [ -d "/usr/local/lib/epitech-gen" ]; then
 fi
 cd "/tmp/"
 echo "Cloning Epigen git repository..."
-git clone "git@github.com:raphaelMrci/Epigen.git"
+git clone "https://github.com/raphaelMrci/Epigen.git"
 echo "Repo cloned."
 echo "Copying files..."
 sudo cp -r "Epigen" /usr/local/lib/Epigen
