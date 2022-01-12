@@ -58,11 +58,11 @@ if [ $print_version ]; then
 fi
 
 if [ $do_update ]; then
-    updated_version = $(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
-    current_version = $(cat /usr/local/lib/Epigen/epitech_gen.sh | grep "VERSION" | sed 's/VERSION=//g')
+    updated_version=$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
+    current_version=$(cat /usr/local/lib/Epigen/epitech_gen.sh | grep -m 1 "VERSION" | sed 's/VERSION=//g')
 
     echo "Current version: $current_version"
-    if [ $current_version -ne $updated_version ]; then
+    if [ $current_version != $updated_version ]; then
         echo "
         New version available: $updated_version
         "
@@ -73,6 +73,9 @@ if [ $do_update ]; then
         sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
         exit $?
     fi
+    echo "
+    Up-to-date.
+"
     exit 0
 fi
 
