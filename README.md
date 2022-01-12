@@ -12,7 +12,9 @@ Improve your efficiency, execute just this program, and your project template wi
 
 ## INSTALLATION
 
-Currently, no installation process available. Work in progress.
+To install Epigen, you just have to execute this following line on Linux:
+
+`sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"`
 
 ## USAGE
 
