@@ -117,7 +117,7 @@ mkdir /tmp/Epigen/tmp/lib/
 
 # .gitignore creation #
 echo $NAME > /tmp/Epigen/tmp/.gitignore
-cat "gitignore_file" >> /tmp/Epigen/tmp/.gitignore
+cat "/usr/local/lib/Epigen/gitignore_file" >> /tmp/Epigen/tmp/.gitignore
 
 # Makefile creation #
 echo "##
