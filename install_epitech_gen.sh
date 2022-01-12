@@ -49,7 +49,7 @@ echo "Removing tmp files..."
 rm -r /tmp/Epigen
 sudo rm -f /usr/local/lib/Epigen/epigen
 echo "Giving perms..."
-sudo chmod -r 777 /usr/local/lib/Epigen
+sudo chmod -R 777 /usr/local/lib/Epigen
 sudo chmod 777 /usr/local/bin/Epigen/epigen
 echo "Permissions given"
 echo "------------ Installation finished ------------"
