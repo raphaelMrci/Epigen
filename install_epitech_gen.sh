@@ -43,7 +43,7 @@ git clone "https://github.com/raphaelMrci/Epigen.git"
 echo "Repo cloned."
 echo "Copying files..."
 sudo cp -r "Epigen" /usr/local/lib/Epigen
-sudo cp /usr/local/lib/Epigen/epigen /usr/local/bin/epigen
+sudo cp "Epigen/epigen" /usr/local/bin/epigen
 echo "Files copied."
 echo "Removing tmp files..."
 rm -r /tmp/Epigen
