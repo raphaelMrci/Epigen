@@ -20,7 +20,7 @@ sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/ma
 
 ## USAGE
 
-`epitech-gen project_name [OPTIONS]`
+`epigen project_name [OPTIONS]`
 
 ## OPTIONS
 
