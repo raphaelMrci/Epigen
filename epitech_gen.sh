@@ -2,19 +2,20 @@
 
 VERSION=0.1
 
+TMPDIR = '/tmp/Epigen'
+
 # Clean tmp
 clean_tmp () {
-    [ -d /tmp/epitech-gen/tmp ] && rm -r /tmp/epitech-gen/tmp
-    mkdir /tmp/epitech-gen/tmp
+    [ -d $TMPDIR/tmp ] && rm -r $TMPDIR/tmp
+    mkdir $TMPDIR/tmp
 }
 
-[ -d /tmp/epitech-gen ] || mkdir /tmp/epitech-gen
+[ -d $TMPDIR ] || mkdir $TMPDIR
 
 clean_tmp
 
 if [ $# -lt 1 ]; then
-    echo "Project name: "
-    read NAME
+    read -p "Project name: " NAME
 fi
 
 while [ $# -ne 0 ]; do
@@ -59,20 +60,32 @@ if [ $print_version ]; then
 fi
 
 if [ do_update ]; then
-    curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep -o "VERSION"
-    exit 0
+    updated_version = $(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
+    current_version = $(cat /usr/local/lib/Epigen/epitech_gen.sh | grep "VERSION" | sed 's/VERSION=//g')
+
+    echo "Current version: $current_version"
+    if [ current_version -ne updated_version]; then
+        echo "
+        New version available: $updated_version
+        "
+        if [[ $EUID -ne 0 ]]; then
+            echo "The installation must be run as root."
+            echo "Please enter your password:"
+        fi
+    fi
+    sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
+    exit $?
 fi
 
-
 # Create all folders #
-mkdir /tmp/epitech-gen/tmp/src/
-mkdir /tmp/epitech-gen/tmp/tests/
-mkdir /tmp/epitech-gen/tmp/inc/
-mkdir /tmp/epitech-gen/tmp/lib/
+mkdir $TMPDIR/tmp/src/
+mkdir $TMPDIR/tmp/tests/
+mkdir $TMPDIR/tmp/inc/
+mkdir $TMPDIR/tmp/lib/
 
 # .gitignore creation #
-echo $NAME > /tmp/epitech-gen/tmp/.gitignore
-cat "gitignore_file" >> /tmp/epitech-gen/tmp/.gitignore
+echo $NAME > $TMPDIR/tmp/.gitignore
+cat "gitignore_file" >> $TMPDIR/tmp/.gitignore
 
 # Makefile creation #
 echo "##
@@ -83,13 +96,13 @@ echo "##
 ##
 
 NAME    =   $NAME
-" > /tmp/epitech-gen/tmp/Makefile
-cat "/usr/local/lib/epitech-gen/makefile_file" >> /tmp/epitech-gen/tmp/Makefile
+" > $TMPDIR/tmp/Makefile
+cat "/usr/local/lib/epitech-gen/makefile_file" >> $TMPDIR/tmp/Makefile
 
 # Lib creation #
 if [ -f $HOME/.your_lib ]; then
-    mkdir /tmp/epitech-gen/tmp/lib/my
-    cp -r $(cat $HOME/.your_lib) /tmp/epitech-gen/tmp/lib/my
+    mkdir $TMPDIR/tmp/lib/my
+    cp -r $(cat $HOME/.your_lib) $TMPDIR/tmp/lib/my
 else
     echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epitech-gen -l lib_path'. Try with -h for help."
 fi
@@ -104,9 +117,9 @@ echo "/*
     #define ${NAME^^}_H_
 
 #endif /*   !${NAME^^}_H_   */
-" > /tmp/epitech-gen/tmp/inc/$NAME.h
+" > $TMPDIR/tmp/inc/$NAME.h
 
-cp -r /tmp/epitech-gen/tmp/* $(pwd)
+cp -r $TMPDIR/tmp/* $(pwd)
 
 if [ "$print_help" ]; then
     echo "USAGE:

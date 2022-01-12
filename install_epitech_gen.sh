@@ -2,22 +2,11 @@
 
 VERSION=0.1
 
-has_sudo() {
-    local prompt
-
-    prompt=$(sudo -nv 2>&1)
-    if [ $? -eq 0 ]; then
-    echo "has_sudo__pass_set"
-    elif echo $prompt | grep -q '^sudo:'; then
-    echo "has_sudo__needs_pass"
-    else
-    echo "no_sudo"
-    fi
-}
-
-if [ $(has_sudo) != has_sudo__pass_set ]; then
-  echo "This script need to be executed with admin permissions. Please set 'sudo' before the installation command..."
-  exit 84
+if [[ $EUID -ne 0 ]]; then
+  echo "The installation must be run as root."
+  echo "Please enter your password:"
+  sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
+  exit $?
 fi
 
 echo "
