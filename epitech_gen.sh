@@ -98,14 +98,14 @@ echo "##
 
 NAME    =   $NAME
 " > $TMPDIR/tmp/Makefile
-cat "/usr/local/lib/epitech-gen/makefile_file" >> $TMPDIR/tmp/Makefile
+cat "/usr/local/lib/Epigen/makefile_file" >> $TMPDIR/tmp/Makefile
 
 # Lib creation #
 if [ -f $HOME/.your_lib ]; then
     mkdir $TMPDIR/tmp/lib/my
     cp -r $(cat $HOME/.your_lib) $TMPDIR/tmp/lib/my
 else
-    echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epitech-gen -l lib_path'. Try with -h for help."
+    echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help."
 fi
 echo "/*
 ** EPITECH PROJECT, 2022
