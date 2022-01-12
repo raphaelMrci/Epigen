@@ -24,16 +24,32 @@ Developed by Raphael MERCIE - EPITECH Toulouse 2026
 
 ------------ Starting installation ------------
 "
+
+# Cleaning old version #
 if [ -d "/usr/local/lib/epitech-gen" ]; then
   echo "Remove old version..."
   sudo rm -r "/usr/local/lib/epitech-gen"
 fi
+if [ -d "/usr/local/lib/Epigen" ]; then
+  echo "Remove old version..."
+  sudo rm -r "/usr/local/lib/Epigen"
+fi
+if [ -f "/usr/local/bin/epitech-gen" ]; then
+  echo "Remove launcher..."
+  sudo rm -f "/usr/local/bin/epitech-gen"
+fi
+if [ -f "/usr/local/bin/epigen" ]; then
+  echo "Remove launcher"
+  sudo rm -f "/usr/local/bin/epigen"
+fi
+
+
 cd "/tmp/"
 echo "Cloning Epigen git repository..."
 git clone "https://github.com/raphaelMrci/Epigen.git"
 echo "Repo cloned."
 echo "Copying files..."
-sudo cp -r "Epigen" /usr/local/lib/Epigen
+sudo cp -r "Epigen" /usr/local/lib/
 sudo cp "Epigen/epigen" /usr/local/bin/epigen
 echo "Files copied."
 echo "Removing tmp files..."
