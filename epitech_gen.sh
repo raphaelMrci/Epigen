@@ -35,6 +35,9 @@ while [ $# -ne 0 ]; do
         -l)
             set_lib=true
             ;;
+        -u | --update)
+            do_update=true
+            ;;
         *)
             if [ set_lib ]; then
                 echo $arg > $HOME/.your_lib
@@ -54,6 +57,12 @@ if [ $print_version ]; then
     echo -e "Current version: ${GREEN}$VERSION${NC}"
     echo Hum.
 fi
+
+if [ do_update ]; then
+    curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep -o "VERSION"
+    exit 0
+fi
+
 
 # Create all folders #
 mkdir /tmp/epitech-gen/tmp/src/
@@ -104,7 +113,7 @@ if [ "$print_help" ]; then
     epitech-gen NAME [OPTIONS]
 
 DESCRIPTION:
-    NAME    name for binary delivery file. You can edit project path too
+    NAME    name for binary delivery file.
 
 OPTIONS:
     -h, --help          print help
@@ -112,6 +121,7 @@ OPTIONS:
     -il, --ignore-lib   ignore lib including
     -v, --version       show current version
     -l                  define your lib path
+    -u, --update        update Epigen
 "
     exit 0
 fi

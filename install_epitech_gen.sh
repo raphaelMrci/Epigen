@@ -1,5 +1,7 @@
 #!/bin/bash
 
+VERSION=0.1
+
 has_sudo() {
     local prompt
 
