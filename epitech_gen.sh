@@ -2,15 +2,13 @@
 
 VERSION=0.1
 
-TMPDIR = '/tmp/Epigen'
-
 # Clean tmp
 clean_tmp () {
-    [ -d $TMPDIR/tmp ] && rm -r $TMPDIR/tmp
-    mkdir $TMPDIR/tmp
+    [ -d /tmp/Epigen/tmp ] && rm -r /tmp/Epigen/tmp
+    mkdir /tmp/Epigen/tmp
 }
 
-[ -d $TMPDIR ] || mkdir $TMPDIR
+[ -d /tmp/Epigen ] || mkdir /tmp/Epigen
 
 clean_tmp
 
@@ -64,7 +62,7 @@ if [ $do_update ]; then
     current_version = $(cat /usr/local/lib/Epigen/epitech_gen.sh | grep "VERSION" | sed 's/VERSION=//g')
 
     echo "Current version: $current_version"
-    if [ current_version -ne updated_version]; then
+    if [ $current_version -ne $updated_version ]; then
         echo "
         New version available: $updated_version
         "
@@ -79,14 +77,14 @@ if [ $do_update ]; then
 fi
 
 # Create all folders #
-mkdir $TMPDIR/tmp/src/
-mkdir $TMPDIR/tmp/tests/
-mkdir $TMPDIR/tmp/inc/
-mkdir $TMPDIR/tmp/lib/
+mkdir /tmp/Epigen/tmp/src/
+mkdir /tmp/Epigen/tmp/tests/
+mkdir /tmp/Epigen/tmp/inc/
+mkdir /tmp/Epigen/tmp/lib/
 
 # .gitignore creation #
-echo $NAME > $TMPDIR/tmp/.gitignore
-cat "gitignore_file" >> $TMPDIR/tmp/.gitignore
+echo $NAME > /tmp/Epigen/tmp/.gitignore
+cat "gitignore_file" >> /tmp/Epigen/tmp/.gitignore
 
 # Makefile creation #
 echo "##
@@ -97,13 +95,13 @@ echo "##
 ##
 
 NAME    =   $NAME
-" > $TMPDIR/tmp/Makefile
-cat "/usr/local/lib/Epigen/makefile_file" >> $TMPDIR/tmp/Makefile
+" > /tmp/Epigen/tmp/Makefile
+cat "/usr/local/lib/Epigen/makefile_file" >> /tmp/Epigen/tmp/Makefile
 
 # Lib creation #
 if [ -f $HOME/.your_lib ]; then
-    mkdir $TMPDIR/tmp/lib/my
-    cp -r $(cat $HOME/.your_lib) $TMPDIR/tmp/lib/my
+    mkdir /tmp/Epigen/tmp/lib/my
+    cp -r $(cat $HOME/.your_lib) /tmp/Epigen/tmp/lib/my
 else
     echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help."
 fi
@@ -118,9 +116,9 @@ echo "/*
     #define ${NAME^^}_H_
 
 #endif /*   !${NAME^^}_H_   */
-" > $TMPDIR/tmp/inc/$NAME.h
+" > /tmp/Epigen/tmp/inc/$NAME.h
 
-cp -r $TMPDIR/tmp/* $(pwd)
+cp -r /tmp/Epigen/tmp/* $(pwd)
 
 if [ "$print_help" ]; then
     echo "USAGE:
