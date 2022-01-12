@@ -50,7 +50,7 @@ rm -r /tmp/Epigen
 sudo rm -f /usr/local/lib/Epigen/epigen
 echo "Giving perms..."
 sudo chmod -R 777 /usr/local/lib/Epigen
-sudo chmod 777 /usr/local/bin/Epigen/epigen
+sudo chmod 777 /usr/local/bin/epigen
 echo "Permissions given"
 echo "------------ Installation finished ------------"
 echo "
