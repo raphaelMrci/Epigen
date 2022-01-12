@@ -13,7 +13,7 @@ clean_tmp () {
 }
 
 if [ -d /tmp/Epigen ]; then
-    echo "" > null
+    echo ""
 else
     mkdir /tmp/Epigen
     chmod -R 777 /tmp/Epigen
