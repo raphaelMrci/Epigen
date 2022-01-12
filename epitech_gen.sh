@@ -72,9 +72,10 @@ if [ do_update ]; then
             echo "The installation must be run as root."
             echo "Please enter your password:"
         fi
+        sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
+        exit $?
     fi
-    sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
-    exit $?
+    exit 0
 fi
 
 # Create all folders #
