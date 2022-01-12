@@ -22,10 +22,12 @@ Currently, no installation process available. Work in progress.
 
 -   `-h` or `--help`: print help
 -   `-v` or `--version`: print current version
+-   `-u` or `--update`: update Epigen
+-   `-il` or `--ignore-lib`: ignore lib include
+-   `-l` LIB_PATH: define your lib path (specify full path)
 
 ## TO DO
 
 -   `-p`: Python project generation
 -   .gitattribute
--   `-c` or `--csfml`: CSFML project generation
--   `-u` or `--update`: update epitech-project-generator
+-   `-g` or `--csfml`: CSFML project generation

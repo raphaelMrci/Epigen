@@ -79,7 +79,7 @@ OPTIONS:
     -h, --help          print help
     -g, --csfml         create a csfml project (TODO)
     -p, --python        create a python project (TODO)
-    -il, --ignore-lib   ignore lib including
+    -il, --ignore-lib   ignore lib include
     -v, --version       show current version
     -l \e[4mLIB_PATH\e[0m         define your lib path (specify full path)
     -u, --update        update Epigen
