@@ -59,7 +59,7 @@ if [ $print_version ]; then
     echo Hum.
 fi
 
-if [ do_update ]; then
+if [ $do_update ]; then
     updated_version = $(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
     current_version = $(cat /usr/local/lib/Epigen/epitech_gen.sh | grep "VERSION" | sed 's/VERSION=//g')
 
