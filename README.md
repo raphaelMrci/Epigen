@@ -1,4 +1,4 @@
-# epitech-project-generator
+# { EPIGEN. }
 
 Simple usage program to start any Epitech project.
 Improve your efficiency, execute just this program, and your project template will be generated, for any epitech project.
