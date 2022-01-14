@@ -156,6 +156,6 @@ echo "/*
 #endif /*   !$(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_   */
 " > /tmp/Epigen/tmp/inc/$NAME.h
 
-cp -r /tmp/Epigen/tmp/* $(pwd)
+cp -r /tmp/Epigen/tmp/. $(pwd)
 
 clean_tmp
