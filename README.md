@@ -22,6 +22,8 @@ sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/ma
 
 `epigen project_name [OPTIONS]`
 
+Launch the program on your desired directory, and everything will be setted up
+
 ## OPTIONS
 
 -   `-h` or `--help`: print help
