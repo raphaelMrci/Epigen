@@ -98,9 +98,10 @@ if [ $do_update ]; then
         "
         if [[ $EUID -ne 0 ]]; then
             echo "The installation must be run as root."
-            echo "Please enter your password:"
+            echo "Please write sudo before: sudo epigen -u"
+            exit 84
         fi
-        sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
+        sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
         exit $?
     fi
     echo "
