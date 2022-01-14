@@ -1,28 +1,48 @@
-SRC	=	$(wildcard src/*.c)
+NAME		=	UwU
 
-SRC_TEST	=	$(wildcard tests/*.c)
+NAME_TEST	=	unit_tests
 
-OBJ	=	$(SRC:.c=.o)
+SRCDIR		=	src/
 
+SRC		:=	$(wildcard $(SRCDIR)/*.c)
 
-$(NAME):	$(OBJ)
-	make -C ./lib/my
-	gcc -o $(NAME) $(OBJ) -L./lib -l my
+TESTDIR		=	tests/
+
+SRC_TEST	=	$(wildcard $(TESTDIR)/*.c) \
+			$(filter-out $(SRCDIR)main.c, $(SRC))
+
+OBJ		=	$(SRC:.c=.o)
+
+CFLAGS		+=	-Wall -Wextra
+
+LIBDIR		+=	./lib/
+
+LDFLAGS		+=	-L$(LIBDIR)
+
+LDLIBS		+=	-lmy
 
 all:	$(NAME)
 
+$(NAME):	$(OBJ)
+	$(MAKE) -C $(LIBDIR)my
+	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS)
+
 clean:
-	rm -f $(OBJ)
-	rm -f unit_tests*
-	make -C ./lib/my clean
+	$(RM) $(OBJ)
+	$(RM) $(NAME_TEST)
+	$(MAKE) -C $(LIBDIR)/my clean
 
 fclean:	clean
-	rm -f $(NAME)
-	make -C ./lib/my fclean
+	$(RM) $(NAME)
+	$(MAKE) -C $(LIBDIR)/my fclean
 
 re:	fclean	all
 
+debug:	CFLAGS += -g3
+debug: re
+
 tests_run:	clean
-	make -C lib/my re
-	gcc -o unit_tests $(SRC) $(SRC_TEST) -lcriterion -L./lib -lmy --coverage
-	./unit_tests
+	$(MAKE) -C $(LIBDIR)/my re
+	$(CC) $(SRC_TEST)-o $(NAME_TEST) -lcriterion $(LDFLAGS) $(LDLIBS) \
+		--coverage
+	./$(NAME_TEST)
