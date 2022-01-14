@@ -45,6 +45,11 @@ unit_tests*
 *.su
 *.idb
 *.pdb
+vgcore*
+
+# Tests
+*.gcno
+*.gcda
 
 # Kernel Module Compile Results
 *.mod*
