@@ -132,7 +132,7 @@ NAME    =   $NAME
 cat "/usr/local/lib/Epigen/makefile_file" >> /tmp/Epigen/tmp/Makefile
 
 # Lib creation #
-if [ $ignore_lib == false ]; then
+if [ "$ignore_lib" = false ]; then
     if [ -f $HOME/.your_lib ]; then
         mkdir /tmp/Epigen/tmp/lib/my
         cp -r $(cat $HOME/.your_lib) /tmp/Epigen/tmp/lib/my
