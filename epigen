@@ -1,3 +1,0 @@
-#!/bin/bash
-
-sh /usr/local/lib/Epigen/epitech_gen.sh $@

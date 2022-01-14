@@ -43,7 +43,10 @@ if [ -f "/usr/local/bin/epigen" ]; then
   sudo rm -f "/usr/local/bin/epigen"
 fi
 
-
+if [ -d "/tmp/Epigen" ]; then
+  echo "Remove tmp"
+  sudo rm -r "/tmp/Epigen"
+fi
 cd "/tmp/"
 echo "Cloning Epigen git repository..."
 git clone "https://github.com/raphaelMrci/Epigen.git"
