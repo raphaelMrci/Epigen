@@ -10,11 +10,14 @@ jobs:
     - name: install via curl
       run: sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
 
+    - name: new empty dir
+      run: mkdir basic_proj && cd basic_proj
+
     - name: create basic project
       run: epigen basic_proj -il
 
     - name: check creation basic project
-      run: test -d basic_proj
+      run: ls | grep Makefile
 
     - name: update Epigen
       run: epigen -u
