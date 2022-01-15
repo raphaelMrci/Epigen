@@ -1,6 +1,6 @@
 name: Check Installation
 
-on: [push, pull_requests]
+on: [push, pull_request]
 
 jobs:
   check-install:
