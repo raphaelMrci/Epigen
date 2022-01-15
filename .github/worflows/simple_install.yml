@@ -1,0 +1,20 @@
+name: Check Installation
+
+on: [push, pull_requests]
+
+jobs:
+  check-install:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: install via curl
+      run: sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
+
+    - name: create basic project
+      run: epigen basic_proj -il
+
+    - name: check creation basic project
+      run: test -d basic_proj
+
+    - name: update Epigen
+      run: epigen -u
