@@ -49,7 +49,7 @@ while [ $# -ne 0 ]; do
         *)
             if [ $set_lib ]; then
                 echo $arg > $HOME/.your_lib
-                set_lib=false
+                exit 0
             else
                 NAME=$arg
             fi
@@ -133,10 +133,10 @@ NAME    =   $NAME
 cat "/usr/local/lib/Epigen/makefile_file" >> /tmp/Epigen/tmp/Makefile
 
 # Lib creation #
-if [ "$ignore_lib" = false ]; then
+if [ "$ignore_lib" != true ]; then
     if [ -f $HOME/.your_lib ]; then
         mkdir /tmp/Epigen/tmp/lib/my
-        cp -r $(cat $HOME/.your_lib) /tmp/Epigen/tmp/lib/my
+        rsync -avr --exclude=".git" --exclude=".gitignore" $(cat $HOME/.your_lib)/ /tmp/Epigen/tmp/lib/my
     else
         echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help."
     fi
