@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.2
+VERSION=0.2.1
 
 RED='\033[0;31m'
 NC='\033[0m' # No Color
