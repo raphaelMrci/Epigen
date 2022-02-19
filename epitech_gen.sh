@@ -89,7 +89,7 @@ fi
 
 if [ $do_update ]; then
     updated_version=$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
-    current_version=$(cat /usr/local/lib/Epigen/epitech_gen.sh | grep -m 1 "VERSION" | sed 's/VERSION=//g')
+    current_version=$(cat /usr/local/share/Epigen/epitech_gen.sh | grep -m 1 "VERSION" | sed 's/VERSION=//g')
     
     echo "Current version: $current_version"
     if [ $current_version != $updated_version ]; then
@@ -118,7 +118,7 @@ mkdir /tmp/Epigen/tmp/lib/
 
 # .gitignore creation #
 echo $NAME > /tmp/Epigen/tmp/.gitignore
-cat "/usr/local/lib/Epigen/gitignore_template" >> /tmp/Epigen/tmp/.gitignore
+cat "/usr/local/share/Epigen/gitignore_template" >> /tmp/Epigen/tmp/.gitignore
 
 # Makefile creation #
 echo "##
@@ -130,7 +130,7 @@ echo "##
 
 NAME    =   $NAME
 " > /tmp/Epigen/tmp/Makefile
-cat "/usr/local/lib/Epigen/makefile_template" >> /tmp/Epigen/tmp/Makefile
+cat "/usr/local/share/Epigen/makefile_template" >> /tmp/Epigen/tmp/Makefile
 
 # Lib creation #
 if [ "$ignore_lib" != true ]; then
