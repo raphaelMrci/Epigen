@@ -21,7 +21,7 @@ fi
 
 clean_tmp
 
-if [ $# -lt 1 ]; then
+if [ -z ${NAME+x} ]; then
     read -p "Project name: " NAME
 fi
 
