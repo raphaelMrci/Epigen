@@ -64,7 +64,7 @@ echo "Permissions given"
 echo "------------ Installation finished ------------"
 echo "
 Epigen installed successfully !
-Thanks for installing Epigen. If you want more details to understand how to use Epigen, use the "-h" option.
+Thanks for installing Epigen. If you want more details to understand how to use Epigen, write `epigen -h` option.
 
 Developed by raphael_mrci - Epitech Toulouse 2026
 https://github.com/raphaelMrci
