@@ -53,14 +53,12 @@ git clone "https://github.com/raphaelMrci/Epigen.git"
 echo "Repo cloned."
 echo "Copying files..."
 sudo cp -r "Epigen" /usr/local/share/
-sudo ln -s "Epigen/epitech_gen.sh" /usr/local/bin/epigen
+sudo ln -s "/usr/local/share/Epigen/epitech_gen.sh" /usr/local/bin/epigen
 echo "Files copied."
 echo "Removing tmp files..."
 rm -r /tmp/Epigen
-sudo rm -f /usr/local/share/Epigen/epigen
 echo "Giving perms..."
 sudo chmod -R a=rx /usr/local/share/Epigen
-sudo chmod a=rx /usr/local/bin/epigen
 echo "Permissions given"
 echo "------------ Installation finished ------------"
 echo "
