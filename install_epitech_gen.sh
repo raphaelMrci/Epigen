@@ -58,6 +58,7 @@ echo "Files copied."
 echo "Removing tmp files..."
 rm -r /tmp/Epigen
 echo "Giving perms..."
+sudo rm -R /usr/local/share/Epigen/.git
 sudo chmod -R a=rx /usr/local/share/Epigen
 echo "Permissions given"
 echo "------------ Installation finished ------------"

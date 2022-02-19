@@ -1,0 +1,50 @@
+NAME_TEST	=	unit_tests
+
+SRCDIR		=	src/
+
+SRC		:=	$(wildcard $(SRCDIR)/*.c)
+
+TESTDIR		=	tests/
+
+SRC_TEST	=	$(wildcard $(TESTDIR)/*.c) \
+			$(filter-out $(SRCDIR)main.c, $(SRC))
+
+OBJ		=	$(SRC:.c=.o)
+
+CFLAGS		+=	-Wall -Wextra
+
+CFLAGS		+=	-lcsfml-graphics -lcsfml-system -lcsfml-audio
+
+LIBDIR		+=	./lib/
+
+LDFLAGS		+=	-L$(LIBDIR)
+
+LDLIBS		+=	-lmy
+
+INC			+=	-I./inc
+
+all:	$(NAME)
+
+$(NAME):	$(OBJ)
+	$(MAKE) -C $(LIBDIR)my
+	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS) $(INC)
+
+clean:
+	$(RM) $(OBJ)
+	$(RM) $(NAME_TEST)
+	$(MAKE) -C $(LIBDIR)/my clean
+
+fclean:	clean
+	$(RM) $(NAME)
+	$(MAKE) -C $(LIBDIR)/my fclean
+
+re:	fclean	all
+
+debug:	CFLAGS += -g3
+debug: re
+
+tests_run:	clean
+	$(MAKE) -C $(LIBDIR)/my re
+	$(CC) $(SRC_TEST)-o $(NAME_TEST) -lcriterion $(LDFLAGS) $(LDLIBS) \
+		--coverage
+	./$(NAME_TEST)

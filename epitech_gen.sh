@@ -46,6 +46,9 @@ while [ $# -ne 0 ]; do
         -u | --update)
             do_update=true
         ;;
+        -p | --python)
+            python_project=true
+        ;;
         *)
             if [ $set_lib ]; then
                 echo $arg > $HOME/.your_lib
@@ -90,7 +93,7 @@ fi
 if [ $do_update ]; then
     updated_version=$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
     current_version=$(cat /usr/local/share/Epigen/epitech_gen.sh | grep -m 1 "VERSION" | sed 's/VERSION=//g')
-    
+
     echo "Current version: $current_version"
     if [ $current_version != $updated_version ]; then
         echo -e "
@@ -117,11 +120,13 @@ mkdir /tmp/Epigen/tmp/inc/
 mkdir /tmp/Epigen/tmp/lib/
 
 # .gitignore creation #
-echo $NAME > /tmp/Epigen/tmp/.gitignore
-cat "/usr/local/share/Epigen/gitignore_template" >> /tmp/Epigen/tmp/.gitignore
+add_gitignore() {
+    echo $NAME > /tmp/Epigen/tmp/.gitignore
+    cat "/usr/local/share/Epigen/gitignore_template" >> /tmp/Epigen/tmp/.gitignore
+}
 
-# Makefile creation #
-echo "##
+makefile_header() {
+    echo "##
 ## EPITECH PROJECT, 2022
 ## $NAME
 ## File description:
@@ -130,20 +135,11 @@ echo "##
 
 NAME    =   $NAME
 " > /tmp/Epigen/tmp/Makefile
-cat "/usr/local/share/Epigen/makefile_template" >> /tmp/Epigen/tmp/Makefile
+}
 
-# Lib creation #
-if [ "$ignore_lib" != true ]; then
-    if [ -f $HOME/.your_lib ]; then
-        mkdir /tmp/Epigen/tmp/lib/my
-        rsync -avr --exclude=".git" --exclude=".gitignore" $(cat $HOME/.your_lib)/ /tmp/Epigen/tmp/lib/my
-    else
-        echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help."
-    fi
-fi
-
-touch /tmp/Epigen/tmp/inc/$NAME.h
-echo "/*
+header_file() {
+    touch /tmp/Epigen/tmp/inc/$NAME.h
+    echo "/*
 ** EPITECH PROJECT, 2022
 ** $NAME
 ** File description:
@@ -152,9 +148,94 @@ echo "/*
 
 #ifndef $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_
     #define $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_
-
-#endif /*   !$(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_   */
 " > /tmp/Epigen/tmp/inc/$NAME.h
+}
+
+close_header_file() {
+    echo "
+#endif /*   !$(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_   */
+" >> /tmp/Epigen/tmp/inc/$NAME.h
+}
+
+import_lib() {
+    if [ "$ignore_lib" != true ]; then
+        if [ -f $HOME/.your_lib ]; then
+            mkdir /tmp/Epigen/tmp/lib/my
+            rsync -avr --exclude=".git" --exclude=".gitignore" $(cat $HOME/.your_lib)/ /tmp/Epigen/tmp/lib/my
+            echo "
+    #include <my.h>" >> /tmp/Epigen/tmp/inc/$NAME.h
+        else
+            echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help.
+Use '-il' or '--ignore-lib' to ignore lib import."
+        fi
+    fi
+}
+
+generate_csfml() {
+    add_gitignore
+    makefile_header
+    cat "/usr/local/share/Epigen/templates/csfml/makefile_template" >> /tmp/Epigen/tmp/Makefile
+    header_file
+    import_lib  # It must add '#include <my.h>' if lib exists #
+    echo "
+    #include <SFML/Graphics.h>
+    #include <SFML/System.h>
+    #include <SFML/Window.h>
+    #include <SFML/Audio.h>
+    #include <stdlib.h>
+    #include <SFML/System/Time.h>
+    #include <unistd.h>
+    #include <time.h>
+
+sfIntRect create_rect(int height, int width, int top, int left);
+sfVector2f create_vector2f(float x, float y);
+" >> /tmp/Epigen/tmp/inc/$NAME.h
+    close_header_file
+    echo "/*
+** EPITECH PROJECT, 2022
+** $NAME
+** File description:
+** CSFML tools
+*/
+
+#include <$(printf '%s' "$NAME").h>
+
+" > /tmp/Epigen/tmp/src/csfml_tools.c
+    cat "/usr/local/share/Epigen/templates/csfml/csfml_tools" >> /tmp/Epigen/tmp/src/csfml_tools.c
+    mkdir /tmp/Epigen/tmp/sounds
+    mkdir /tmp/Epigen/tmp/musics
+    mkdir /tmp/Epigen/tmp/fonts
+    mkdir /tmp/Epigen/tmp/img
+}
+
+generate_basic() {
+    add_gitignore
+    makefile_header
+    cat "/usr/local/share/Epigen/templates/basic/makefile_template" >> /tmp/Epigen/tmp/Makefile
+    header_file
+    import_lib  # It must add '#include <my.h>' if lib exists #
+    close_header_file
+}
+
+generate_python() {
+    add_gitignore
+    echo "#!/bin/python
+
+" > /tmp/Epigen/tmp/$NAME
+}
+
+# Define what project to generate #
+if [ $csfml_project ] && [ $python_project ]; then
+    echo -e "${RED}Multiple projects types defined. You can't specify more than 1 project type.${NC}"
+    exit 84
+fi
+if [ $csfml_project ]; then
+    generate_csfml
+elif [ $python_project ]; then
+    generate_python
+else
+    generate_basic
+fi
 
 cp -r /tmp/Epigen/tmp/. $(pwd)
 

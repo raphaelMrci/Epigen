@@ -19,11 +19,13 @@ LDFLAGS		+=	-L$(LIBDIR)
 
 LDLIBS		+=	-lmy
 
+INC			+=	-I./inc
+
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	$(MAKE) -C $(LIBDIR)my
-	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS)
+	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS) $(INC)
 
 clean:
 	$(RM) $(OBJ)

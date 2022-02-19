@@ -1,0 +1,19 @@
+sfIntRect create_rect(int height, int width, int top, int left)
+{
+    sfIntRect res;
+
+    res.height = height;
+    res.width = width;
+    res.top = top;
+    res.left = left;
+    return (res);
+}
+
+sfVector2f create_vector2f(float x, float y)
+{
+    sfVector2f res;
+
+    res.x = x;
+    res.y = y;
+    return (res);
+}
