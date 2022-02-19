@@ -1,12 +1,12 @@
 #!/bin/bash
 
-VERSION=0.1
+VERSION=0.2
 
 if [[ $EUID -ne 0 ]]; then
-  echo "The installation must be run as root."
-  echo "Please enter your password:"
-  sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
-  exit $?
+    echo "The installation must be run as root."
+    echo "Please enter your password:"
+    sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
+    exit $?
 fi
 
 echo "
@@ -26,41 +26,41 @@ Developed by Raphael MERCIE - EPITECH Toulouse 2026
 "
 
 # Cleaning old version #
-if [ -d "/usr/local/lib/epitech-gen" ]; then
-  echo "Remove old version..."
-  sudo rm -r "/usr/local/lib/epitech-gen"
+if [ -d "/usr/local/share/epitech-gen" ]; then
+    echo "Remove old version..."
+    sudo rm -r "/usr/local/share/epitech-gen"
 fi
-if [ -d "/usr/local/lib/Epigen" ]; then
-  echo "Remove old version..."
-  sudo rm -r "/usr/local/lib/Epigen"
+if [ -d "/usr/local/share/Epigen" ]; then
+    echo "Remove old version..."
+    sudo rm -r "/usr/local/share/Epigen"
 fi
 if [ -f "/usr/local/bin/epitech-gen" ]; then
-  echo "Remove launcher..."
-  sudo rm -f "/usr/local/bin/epitech-gen"
+    echo "Remove launcher..."
+    sudo rm -f "/usr/local/bin/epitech-gen"
 fi
 if [ -f "/usr/local/bin/epigen" ]; then
-  echo "Remove launcher"
-  sudo rm -f "/usr/local/bin/epigen"
+    echo "Remove launcher..."
+    sudo rm -f "/usr/local/bin/epigen"
 fi
 
 if [ -d "/tmp/Epigen" ]; then
-  echo "Remove tmp"
-  sudo rm -r "/tmp/Epigen"
+    echo "Remove tmp"
+    sudo rm -r "/tmp/Epigen"
 fi
 cd "/tmp/"
 echo "Cloning Epigen git repository..."
 git clone "https://github.com/raphaelMrci/Epigen.git"
 echo "Repo cloned."
 echo "Copying files..."
-sudo cp -r "Epigen" /usr/local/lib/
-sudo cp "Epigen/epigen" /usr/local/bin/epigen
+sudo cp -r "Epigen" /usr/local/share/
+sudo ln -s "Epigen/epitech_gen.sh" /usr/local/bin/epigen
 echo "Files copied."
 echo "Removing tmp files..."
 rm -r /tmp/Epigen
-sudo rm -f /usr/local/lib/Epigen/epigen
+sudo rm -f /usr/local/share/Epigen/epigen
 echo "Giving perms..."
-sudo chmod -R 777 /usr/local/lib/Epigen
-sudo chmod 777 /usr/local/bin/epigen
+sudo chmod -R a=rx /usr/local/share/Epigen
+sudo chmod a=rx /usr/local/bin/epigen
 echo "Permissions given"
 echo "------------ Installation finished ------------"
 echo "

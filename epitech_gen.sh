@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.1
+VERSION=0.2
 
 RED='\033[0;31m'
 NC='\033[0m' # No Color
@@ -16,7 +16,7 @@ if [ -d /tmp/Epigen ]; then
     echo ""
 else
     mkdir /tmp/Epigen
-    chmod -R 777 /tmp/Epigen
+    chmod -R a+wrx /tmp/Epigen
 fi
 
 clean_tmp
@@ -30,22 +30,22 @@ while [ $# -ne 0 ]; do
     case "$arg" in
         -h | --help)
             print_help=true
-            ;;
+        ;;
         -g | --csfml)
             csfml_project=true
-            ;;
+        ;;
         -il | --ignore-lib)
             ignore_lib=true
-            ;;
+        ;;
         -v | --version)
             print_version=true
-            ;;
+        ;;
         -l)
             set_lib=true
-            ;;
+        ;;
         -u | --update)
             do_update=true
-            ;;
+        ;;
         *)
             if [ $set_lib ]; then
                 echo $arg > $HOME/.your_lib
@@ -53,7 +53,7 @@ while [ $# -ne 0 ]; do
             else
                 NAME=$arg
             fi
-            ;;
+        ;;
     esac
     shift
 done
@@ -64,7 +64,7 @@ if [ $print_version ]; then
 fi
 
 if [ "$print_help" ]; then
-    echo "Epigen v$VERSION
+    echo -e "Epigen ${GREEN}v$VERSION${NC}
 
 Epitech project generator developed by Raphael MERCIE - EPITECH Toulouse 2026
 Generate Epitech project templates easily
@@ -83,18 +83,18 @@ OPTIONS:
     -v, --version       show current version
     -l \e[4mLIB_PATH\e[0m         define your lib path (specify full path)
     -u, --update        update Epigen
-"
+    "
     exit 0
 fi
 
 if [ $do_update ]; then
     updated_version=$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
     current_version=$(cat /usr/local/lib/Epigen/epitech_gen.sh | grep -m 1 "VERSION" | sed 's/VERSION=//g')
-
+    
     echo "Current version: $current_version"
     if [ $current_version != $updated_version ]; then
-        echo "
-        New version available: $updated_version
+        echo -e "
+        New version available: ${RED}$updated_version${NC}
         "
         if [[ $EUID -ne 0 ]]; then
             echo "The installation must be run as root."
@@ -104,9 +104,9 @@ if [ $do_update ]; then
         sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
         exit $?
     fi
-    echo "
-    Up-to-date.
-"
+    echo -e "
+    ${GREEN}Up-to-date.${NC}
+    "
     exit 0
 fi
 
@@ -118,7 +118,7 @@ mkdir /tmp/Epigen/tmp/lib/
 
 # .gitignore creation #
 echo $NAME > /tmp/Epigen/tmp/.gitignore
-cat "/usr/local/lib/Epigen/gitignore_file" >> /tmp/Epigen/tmp/.gitignore
+cat "/usr/local/lib/Epigen/gitignore_template" >> /tmp/Epigen/tmp/.gitignore
 
 # Makefile creation #
 echo "##
@@ -130,7 +130,7 @@ echo "##
 
 NAME    =   $NAME
 " > /tmp/Epigen/tmp/Makefile
-cat "/usr/local/lib/Epigen/makefile_file" >> /tmp/Epigen/tmp/Makefile
+cat "/usr/local/lib/Epigen/makefile_template" >> /tmp/Epigen/tmp/Makefile
 
 # Lib creation #
 if [ "$ignore_lib" != true ]; then
