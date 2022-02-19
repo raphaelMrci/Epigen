@@ -16,7 +16,7 @@ if [ -d /tmp/Epigen ]; then
     echo ""
 else
     mkdir /tmp/Epigen
-    chmod -R 777 /tmp/Epigen
+    chmod -R a+wrx /tmp/Epigen
 fi
 
 clean_tmp
@@ -64,7 +64,7 @@ if [ $print_version ]; then
 fi
 
 if [ "$print_help" ]; then
-    echo "Epigen v$VERSION
+    echo -e "Epigen ${GREEN}v$VERSION${NC}
 
 Epitech project generator developed by Raphael MERCIE - EPITECH Toulouse 2026
 Generate Epitech project templates easily
@@ -93,8 +93,8 @@ if [ $do_update ]; then
     
     echo "Current version: $current_version"
     if [ $current_version != $updated_version ]; then
-        echo "
-        New version available: $updated_version
+        echo -e "
+        New version available: ${RED}$updated_version${NC}
         "
         if [[ $EUID -ne 0 ]]; then
             echo "The installation must be run as root."
@@ -104,8 +104,8 @@ if [ $do_update ]; then
         sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
         exit $?
     fi
-    echo "
-    Up-to-date.
+    echo -e "
+    ${GREEN}Up-to-date.${NC}
     "
     exit 0
 fi
