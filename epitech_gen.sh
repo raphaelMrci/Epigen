@@ -71,7 +71,7 @@ if [ $do_update ]; then
             echo "Please write sudo before: sudo epigen -u"
             exit 84
         fi
-        sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
+        sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
         exit $?
     fi
     echo -e "
