@@ -25,7 +25,7 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	$(MAKE) -C $(LIBDIR)my
-	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS) $(INC)
+	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS)
 
 clean:
 	$(RM) $(OBJ)
