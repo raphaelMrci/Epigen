@@ -57,6 +57,29 @@ while [ $# -ne 0 ]; do
     shift
 done
 
+if [ $do_update ]; then
+    updated_version=$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
+    current_version=$(cat /usr/local/share/Epigen/epitech_gen.sh | grep -m 1 "VERSION" | sed 's/VERSION=//g')
+
+    echo "Current version: $current_version"
+    if [ $current_version != $updated_version ]; then
+        echo -e "
+        New version available: ${RED}$updated_version${NC}
+        "
+        if [[ $EUID -ne 0 ]]; then
+            echo "The installation must be run as root."
+            echo "Please write sudo before: sudo epigen -u"
+            exit 84
+        fi
+        sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
+        exit $?
+    fi
+    echo -e "
+    ${GREEN}Up-to-date.${NC}
+"
+    exit 0
+fi
+
 if [ $csfml_project ] && [ $python_project ]; then
     echo -e "${RED}Multiple projects types defined. You can't specify more than 1 project type.${NC}"
     exit 84
@@ -92,29 +115,6 @@ OPTIONS:
     -l \e[4mLIB_PATH\e[0m         define your lib path (specify full path)
     -u, --update        update Epigen
     "
-    exit 0
-fi
-
-if [ $do_update ]; then
-    updated_version=$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh | grep  "VERSION" | sed 's/VERSION=//g')
-    current_version=$(cat /usr/local/share/Epigen/epitech_gen.sh | grep -m 1 "VERSION" | sed 's/VERSION=//g')
-
-    echo "Current version: $current_version"
-    if [ $current_version != $updated_version ]; then
-        echo -e "
-        New version available: ${RED}$updated_version${NC}
-        "
-        if [[ $EUID -ne 0 ]]; then
-            echo "The installation must be run as root."
-            echo "Please write sudo before: sudo epigen -u"
-            exit 84
-        fi
-        sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
-        exit $?
-    fi
-    echo -e "
-    ${GREEN}Up-to-date.${NC}
-"
     exit 0
 fi
 
