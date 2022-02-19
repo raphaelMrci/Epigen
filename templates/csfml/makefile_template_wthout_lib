@@ -15,26 +15,17 @@ CFLAGS		+=	-Wall -Wextra -Iinc/
 
 CFLAGS		+=	-lcsfml-graphics -lcsfml-system -lcsfml-audio
 
-LIBDIR		+=	./lib/
-
-LDFLAGS		+=	-L$(LIBDIR)
-
-LDLIBS		+=	-lmy
-
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	$(MAKE) -C $(LIBDIR)my
-	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS) $(INC)
+	$(CC) $(OBJ) -o $(NAME)
 
 clean:
 	$(RM) $(OBJ)
 	$(RM) $(NAME_TEST)
-	$(MAKE) -C $(LIBDIR)/my clean
 
 fclean:	clean
 	$(RM) $(NAME)
-	$(MAKE) -C $(LIBDIR)/my fclean
 
 re:	fclean	all
 
@@ -43,6 +34,6 @@ debug: re
 
 tests_run:	clean
 	$(MAKE) -C $(LIBDIR)/my re
-	$(CC) $(SRC_TEST)-o $(NAME_TEST) -lcriterion $(LDFLAGS) $(LDLIBS) \
+	$(CC) $(SRC_TEST)-o $(NAME_TEST) -lcriterion \
 		--coverage
 	./$(NAME_TEST)

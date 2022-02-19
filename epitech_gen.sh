@@ -157,8 +157,7 @@ header_file() {
 }
 
 close_header_file() {
-    echo "
-#endif /*   !$(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_   */
+    echo "#endif /*   !$(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_   */
 " >> /tmp/Epigen/tmp/inc/$NAME.h
 }
 
@@ -187,18 +186,16 @@ import_lib() {
         else
             echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help.
 Use '-il' or '--ignore-lib' to ignore lib import."
+            ignore_lib=true
         fi
     fi
 }
 
 generate_csfml() {
     add_gitignore
-    makefile_header
-    cat "/usr/local/share/Epigen/templates/csfml/makefile_template" >> /tmp/Epigen/tmp/Makefile
     header_file
     import_lib  # It must add '#include <my.h>' if lib exists #
-    echo "
-    #include <SFML/Graphics.h>
+    echo "    #include <SFML/Graphics.h>
     #include <SFML/System.h>
     #include <SFML/Window.h>
     #include <SFML/Audio.h>
@@ -211,6 +208,12 @@ sfIntRect create_rect(int height, int width, int top, int left);
 sfVector2f create_vector2f(float x, float y);
 " >> /tmp/Epigen/tmp/inc/$NAME.h
     close_header_file
+    makefile_header
+    if [ $ignore_lib ]; then
+        cat "/usr/local/share/Epigen/templates/csfml/makefile_template_wthout_lib" >> /tmp/Epigen/tmp/Makefile
+    else
+        cat "/usr/local/share/Epigen/templates/csfml/makefile_template" >> /tmp/Epigen/tmp/Makefile
+    fi
     echo "/*
 ** EPITECH PROJECT, 2022
 ** $NAME
@@ -231,10 +234,14 @@ sfVector2f create_vector2f(float x, float y);
 
 generate_basic() {
     add_gitignore
-    makefile_header
-    cat "/usr/local/share/Epigen/templates/basic/makefile_template" >> /tmp/Epigen/tmp/Makefile
-    header_file
     import_lib  # It must add '#include <my.h>' if lib exists #
+    makefile_header
+    if [ $ignore_lib ]; then
+        cat "/usr/local/share/Epigen/templates/basic/makefile_template_wthout_lib" >> /tmp/Epigen/tmp/Makefile
+    else
+        cat "/usr/local/share/Epigen/templates/basic/makefile_template" >> /tmp/Epigen/tmp/Makefile
+    fi
+    header_file
     close_header_file
     main_file
 }

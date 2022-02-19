@@ -11,7 +11,7 @@ SRC_TEST	=	$(wildcard $(TESTDIR)/*.c) \
 
 OBJ		=	$(SRC:.c=.o)
 
-CFLAGS		+=	-Wall -Wextra
+CFLAGS		+=	-Wall -Wextra -Iinc/
 
 LIBDIR		+=	./lib/
 
@@ -19,13 +19,11 @@ LDFLAGS		+=	-L$(LIBDIR)
 
 LDLIBS		+=	-lmy
 
-INC			+=	-I./inc
-
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	$(MAKE) -C $(LIBDIR)my
-	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS) $(INC)
+	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) $(LDLIBS)
 
 clean:
 	$(RM) $(OBJ)
