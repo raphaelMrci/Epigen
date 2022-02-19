@@ -15,7 +15,7 @@ Improve your efficiency, execute just this program, and your project template wi
 To install Epigen, you just have to execute this following line on Linux:
 
 ```
-sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)"
 ```
 
 ## USAGE
@@ -31,9 +31,9 @@ Launch the program on your desired directory, and everything will be setted up
 -   `-u` or `--update`: update Epigen
 -   `-il` or `--ignore-lib`: ignore lib include
 -   `-l` LIB_PATH: define your lib path (specify full path)
+-   `-p`: Python project generation
+-   `-g` or `--csfml`: CSFML project generation
 
 ## TO DO
 
--   `-p`: Python project generation
 -   .gitattribute
--   `-g` or `--csfml`: CSFML project generation

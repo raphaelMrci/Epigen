@@ -5,7 +5,7 @@ VERSION=0.2
 if [[ $EUID -ne 0 ]]; then
     echo "The installation must be run as root."
     echo "Please enter your password:"
-    sudo "$0" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
+    sudo "$0" "sudo bash -c \"$(curl -fsSL https://raw.githubusercontent.com/raphaelMrci/Epigen/main/install_epitech_gen.sh)\""
     exit $?
 fi
 
