@@ -152,8 +152,7 @@ header_file() {
 */
 
 #ifndef $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_
-    #define $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_
-" > /tmp/Epigen/tmp/inc/$NAME.h
+    #define $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_" > /tmp/Epigen/tmp/inc/$NAME.h
 }
 
 close_header_file() {
@@ -224,7 +223,6 @@ sfVector2f create_vector2f(float x, float y);
 */
 
 #include <$(printf '%s' "$NAME").h>
-
 " > /tmp/Epigen/tmp/src/csfml_tools.c
     cat "/usr/local/share/Epigen/templates/csfml/csfml_tools" >> /tmp/Epigen/tmp/src/csfml_tools.c
     main_file
