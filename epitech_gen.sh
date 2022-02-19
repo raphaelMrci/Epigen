@@ -157,6 +157,21 @@ close_header_file() {
 " >> /tmp/Epigen/tmp/inc/$NAME.h
 }
 
+main_file() {
+    echo "/*
+** EPITECH PROJECT, 2022
+** $NAME
+** File description:
+** $NAME main file
+*/
+
+#include <$(printf '%s' "$NAME").h>
+
+int main(int ac, char **av) {
+    return (0);
+}" > /tmp/Epigen/tmp/src/$NAME.c
+}
+
 import_lib() {
     if [ "$ignore_lib" != true ]; then
         if [ -f $HOME/.your_lib ]; then
@@ -202,6 +217,7 @@ sfVector2f create_vector2f(float x, float y);
 
 " > /tmp/Epigen/tmp/src/csfml_tools.c
     cat "/usr/local/share/Epigen/templates/csfml/csfml_tools" >> /tmp/Epigen/tmp/src/csfml_tools.c
+    main_file
     mkdir /tmp/Epigen/tmp/sounds
     mkdir /tmp/Epigen/tmp/musics
     mkdir /tmp/Epigen/tmp/fonts
@@ -215,6 +231,7 @@ generate_basic() {
     header_file
     import_lib  # It must add '#include <my.h>' if lib exists #
     close_header_file
+    main_file
 }
 
 generate_python() {
