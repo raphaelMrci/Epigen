@@ -21,10 +21,6 @@ fi
 
 clean_tmp
 
-if [ -z ${NAME+x} ]; then
-    read -p "Project name: " NAME
-fi
-
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -60,6 +56,15 @@ while [ $# -ne 0 ]; do
     esac
     shift
 done
+
+if [ $csfml_project ] && [ $python_project ]; then
+    echo -e "${RED}Multiple projects types defined. You can't specify more than 1 project type.${NC}"
+    exit 84
+fi
+
+if [ -z ${NAME+x} ]; then
+    read -p "Project name: " NAME
+fi
 
 if [ $print_version ]; then
     echo -e "Current version: ${GREEN}$VERSION${NC}"
@@ -109,7 +114,7 @@ if [ $do_update ]; then
     fi
     echo -e "
     ${GREEN}Up-to-date.${NC}
-    "
+"
     exit 0
 fi
 
@@ -242,10 +247,6 @@ generate_python() {
 }
 
 # Define what project to generate #
-if [ $csfml_project ] && [ $python_project ]; then
-    echo -e "${RED}Multiple projects types defined. You can't specify more than 1 project type.${NC}"
-    exit 84
-fi
 if [ $csfml_project ]; then
     generate_csfml
 elif [ $python_project ]; then
