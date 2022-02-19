@@ -183,6 +183,8 @@ import_lib() {
             rsync -avr --exclude=".git" --exclude=".gitignore" $(cat $HOME/.your_lib)/ /tmp/Epigen/tmp/lib/my
             echo "
     #include <my.h>" >> /tmp/Epigen/tmp/inc/$NAME.h
+            make -C /tmp/Epigen/tmp/lib/my
+            make -C /tmp/Epigen/tmp/lib/my clean
         else
             echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help.
 Use '-il' or '--ignore-lib' to ignore lib import."
