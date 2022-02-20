@@ -58,7 +58,10 @@ echo "Files copied."
 echo "Removing tmp files..."
 rm -r /tmp/Epigen
 echo "Giving perms..."
+echo "Remove useless files..."
 sudo rm -R /usr/local/share/Epigen/.git
+sudo rm -R /usr/local/share/Epigen/epigen.bat
+sudo rm -R /usr/local/share/Epigen/windows_installer.bat
 sudo chmod -R a=rx /usr/local/share/Epigen
 echo "Permissions given"
 echo "------------ Installation finished ------------"
