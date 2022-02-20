@@ -10,6 +10,7 @@ GREEN='\033[0;32m'
 clean_tmp () {
     [ -d /tmp/Epigen/tmp ] && rm -r /tmp/Epigen/tmp
     mkdir /tmp/Epigen/tmp
+    chmod 655 /tmp/Epigen/tmp/
 }
 
 if [ -d /tmp/Epigen ]; then
@@ -265,4 +266,5 @@ fi
 
 cp -r /tmp/Epigen/tmp/. $(pwd)
 
+chmod 655 /tmp/Epigen/tmp/
 clean_tmp
