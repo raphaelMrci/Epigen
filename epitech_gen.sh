@@ -85,17 +85,15 @@ if [ $csfml_project ] && [ $python_project ]; then
     exit 84
 fi
 
-if [ -z ${NAME+x} ]; then
-    read -p "Project name: " NAME
-fi
-
 if [ $print_version ]; then
     echo -e "Current version: ${GREEN}$VERSION${NC}"
     exit 0
 fi
 
+
+
 if [ "$print_help" ]; then
-    echo -e "Epigen ${GREEN}v$VERSION${NC}
+    echo -e "Epigen ${GREEN}$VERSION${NC}
 
 Epitech project generator developed by Raphael MERCIE - EPITECH Toulouse 2026
 Generate Epitech project templates easily
@@ -116,6 +114,10 @@ OPTIONS:
     -u, --update        update Epigen
     "
     exit 0
+fi
+
+if [ -z ${NAME+x} ]; then
+    read -p "Project name: " NAME
 fi
 
 # Create all folders #
@@ -143,7 +145,7 @@ NAME    =   $NAME
 }
 
 header_file() {
-    touch /tmp/Epigen/tmp/inc/$NAME.h
+    touch /tmp/Epigen/tmp/src/$NAME.h
     echo "/*
 ** EPITECH PROJECT, 2022
 ** $NAME
@@ -152,12 +154,12 @@ header_file() {
 */
 
 #ifndef $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_
-    #define $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_" > /tmp/Epigen/tmp/inc/$NAME.h
+    #define $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_" > /tmp/Epigen/tmp/src/$NAME.h
 }
 
 close_header_file() {
     echo "#endif /*   !$(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_   */
-" >> /tmp/Epigen/tmp/inc/$NAME.h
+" >> /tmp/Epigen/tmp/src/$NAME.h
 }
 
 main_file() {
@@ -168,7 +170,7 @@ main_file() {
 ** $NAME main file
 */
 
-#include <$(printf '%s' "$NAME").h>
+#include \"$(printf '%s' "$NAME").h\"
 
 int main(int ac, char **av) {
     return (0);
@@ -181,7 +183,7 @@ import_lib() {
             mkdir /tmp/Epigen/tmp/lib/my
             rsync -avr --exclude=".git" --exclude=".gitignore" $(cat $HOME/.your_lib)/ /tmp/Epigen/tmp/lib/my
             echo "
-    #include <my.h>" >> /tmp/Epigen/tmp/inc/$NAME.h
+    #include \"my.h\"" >> /tmp/Epigen/tmp/src/$NAME.h
             make -C /tmp/Epigen/tmp/lib/my
             make -C /tmp/Epigen/tmp/lib/my clean
         else
@@ -207,7 +209,7 @@ generate_csfml() {
 
 sfIntRect create_rect(int height, int width, int top, int left);
 sfVector2f create_vector2f(float x, float y);
-" >> /tmp/Epigen/tmp/inc/$NAME.h
+" >> /tmp/Epigen/tmp/src/$NAME.h
     close_header_file
     makefile_header
     if [ $ignore_lib ]; then
@@ -222,7 +224,7 @@ sfVector2f create_vector2f(float x, float y);
 ** CSFML tools
 */
 
-#include <$(printf '%s' "$NAME").h>
+#include \"$(printf '%s' "$NAME").h\"
 " > /tmp/Epigen/tmp/src/csfml_tools.c
     cat "/usr/local/share/Epigen/templates/csfml/csfml_tools" >> /tmp/Epigen/tmp/src/csfml_tools.c
     main_file
@@ -247,7 +249,6 @@ generate_basic() {
 }
 
 generate_python() {
-    add_gitignore
     echo "#!/bin/python
 
 " > /tmp/Epigen/tmp/$NAME
