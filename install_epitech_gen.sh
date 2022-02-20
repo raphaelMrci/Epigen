@@ -61,8 +61,6 @@ echo "Giving perms..."
 echo "Remove useless files..."
 sudo rm -R /usr/local/share/Epigen/.git
 sudo rm -R /usr/local/share/Epigen/epigen.bat
-sudo rm -R /usr/local/share/Epigen/windows_installer.bat
-sudo rm -R /usr/local/share/Epigen/assets
 sudo rm -R /usr/local/share/Epigen/assets
 sudo rm -R /usr/local/share/Epigen/README.md
 sudo chmod -R a=rx /usr/local/share/Epigen
