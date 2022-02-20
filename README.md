@@ -3,6 +3,9 @@
 Simple usage program to start any Epitech project.
 Improve your efficiency, execute just this program, and your project template will be generated, for any epitech project.
 
+![](assets/epige_preview.gif)
+![](assets/epige_preview_csfml.gif)
+
 ## MENU
 
 -   [Installation](#installation)
