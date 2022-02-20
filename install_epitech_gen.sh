@@ -56,7 +56,7 @@ sudo cp -r "Epigen" /usr/local/share/
 sudo ln -s "/usr/local/share/Epigen/epitech_gen.sh" /usr/local/bin/epigen
 echo "Files copied."
 echo "Removing tmp files..."
-rm -r /tmp/Epigen
+sudo rm -r /tmp/Epigen
 echo "Giving perms..."
 echo "Remove useless files..."
 sudo rm -R /usr/local/share/Epigen/.git
@@ -70,7 +70,7 @@ echo "Permissions given"
 echo "------------ Installation finished ------------"
 echo "
 Epigen installed successfully !
-Thanks for installing Epigen. If you want more details to understand how to use Epigen, write `epigen -h`.
+Thanks for installing Epigen. If you want more details to understand how to use Epigen, write \"epigen -h\".
 
 Developed by raphael_mrci - Epitech Toulouse 2026
 https://github.com/raphaelMrci
