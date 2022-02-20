@@ -13,9 +13,9 @@ Improve your efficiency, execute just this program, and your project template wi
 ## INSTALLATION
 
 <details>
-  <summary>LINUX</summary>
+  <summary>GNU/LINUX</summary>
 
-### LINUX
+### GNU/LINUX
 
 To install Epigen, you just have to execute this following line on Linux:
 
@@ -58,7 +58,6 @@ The Windows installation is not perfect. Some files are useless, so you can remo
 -   assets
 -   epitech_gen.sh
 -   install_epitech_gen.sh
--   LICENSE
 -   READEME.md
 </details>
 Congratulations, you can now use Epigen on your Windows device !
