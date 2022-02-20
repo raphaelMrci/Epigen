@@ -73,7 +73,7 @@ Launch the program on your desired directory, and everything will be setted up
 -   `-u` or `--update`: update Epigen
 -   `-il` or `--ignore-lib`: ignore lib include
 -   `-l` LIB_PATH: define your lib path (specify full path)
--   `-p`: Python project generation
+-   `-p`: Python project generation (BETA)
 -   `-g` or `--csfml`: CSFML project generation
 
 ## TO DO
