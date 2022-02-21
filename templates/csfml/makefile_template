@@ -13,13 +13,13 @@ OBJ		=	$(SRC:.c=.o)
 
 CFLAGS		+=	-Wall -Wextra -Iinc/
 
-CFLAGS		+=	-lcsfml-graphics -lcsfml-system -lcsfml-audio
-
 LIBDIR		+=	./lib/
 
 LDFLAGS		+=	-L$(LIBDIR)
 
-LDLIBS		+=	-lmy
+GRAPHLIB	=	-lcsfml-graphics -lcsfml-system -lcsfml-audio
+
+LDLIBS		+=	-lmy $(GRAPHLIB)
 
 all:	$(NAME)
 

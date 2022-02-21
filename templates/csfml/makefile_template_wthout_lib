@@ -13,7 +13,9 @@ OBJ		=	$(SRC:.c=.o)
 
 CFLAGS		+=	-Wall -Wextra -Iinc/
 
-CFLAGS		+=	-lcsfml-graphics -lcsfml-system -lcsfml-audio
+GRAPHLIB	=	-lcsfml-graphics -lcsfml-system -lcsfml-audio
+
+LDLIBS		+=	$(GRAPHLIB)
 
 all:	$(NAME)
 
