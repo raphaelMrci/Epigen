@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.2.2
+VERSION=0.2.3
 
 RED='\033[0;31m'
 NC='\033[0m' # No Color
@@ -264,7 +264,7 @@ else
     generate_basic
 fi
 
-cp -r /tmp/Epigen/tmp/. $(pwd)
+cp -r /tmp/Epigen/tmp/. "$(pwd)"
 
 chmod 777 /tmp/Epigen/tmp/
 clean_tmp
