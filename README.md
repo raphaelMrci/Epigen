@@ -78,6 +78,8 @@ Launch the program on your desired directory, and everything will be setted up
 -   `-l` LIB_PATH: define your lib path (specify full path)
 -   `-p`: Python project generation (BETA)
 -   `-g` or `--csfml`: CSFML project generation
+-   `-vd` or `--vscode-debug`: configure vscode debugger on project creation
+-   `-ovd` or `--only-vscode-debug` configure vscode debugger even if project is already created (for C basic projects. You must ajust 'tasks.json' if you use more libraries)
 
 ## TO DO
 
