@@ -30,33 +30,21 @@ if exist C:\temp\Epigen rd /s /q "C:\temp\Epigen"
 :: I've just tried to do a switch case, but Batch doesn't have switch nor elseif... Sorry...
 :get_options
 if "%1"=="" goto Continue
-    if "%1"=="-h" (set "print_help=y") else (
-        if "%1"=="--help" (set "print_help=y") else (
-            if "%1"=="-g" (set "csfml_project=y") else (
-                if "%1"=="--csfml" (set "csfml_project=y") else (
-                    if "%1"=="-il" (set "ignore_lib=y") else (
-                        if "%1"=="--ignore-lib" (set "ignore_lib=y") else (
-                            if "%1"=="-v" (set "print_version=y") else (
-                                if "%1"=="--version" (set "print_version=y") else (
-                                    if "%1"=="-l" (goto save_lib) else (
-                                        if "%1"=="-u" (set "do_update=y") else (
-                                            if "%1"=="--update" (set "do_update=y") else (
-                                                if "%1"=="-p" (set "python_project=y") else (
-                                                    if "%1"=="--python" (set "python_project=y") else (
-                                                        set STATIC_NAME="%1"
-                                                   )
-                                               )
-                                           )
-                                       )
-                                   )
-                               )
-                           )
-                       )
-                   )
-               )
-           )
-       )
-   )
+    if "%1"=="-h" (set "print_help=y" & goto end_options)
+    if "%1"=="--help" (set "print_help=y" & goto end_options)
+    if "%1"=="-g" (set "csfml_project=y" & goto end_options)
+    if "%1"=="--csfml" (set "csfml_project=y" & goto end_options)
+    if "%1"=="-il" (set "ignore_lib=y" & goto end_options)
+    if "%1"=="--ignore-lib" (set "ignore_lib=y" & goto end_options)
+    if "%1"=="-v" (set "print_version=y" & goto end_options)
+    if "%1"=="--version" (set "print_version=y" & goto end_options)
+    if "%1"=="-l" (goto save_lib)
+    if "%1"=="-u" (set "do_update=y" & goto end_options)
+    if "%1"=="--update" (set "do_update=y" & goto end_options)
+    if "%1"=="-p" (set "python_project=y" & goto end_options)
+    if "%1"=="--python" (set "python_project=y" & goto end_options)
+    set STATIC_NAME="%1"
+:end_options
 shift
 goto get_options
 
