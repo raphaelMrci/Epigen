@@ -153,7 +153,8 @@ add_debug_files() {
             \"args\": [
                 \"-g\",
                 \"\${workspaceFolder}/src/*.c\",
-                \"-fdiagnostics-color=always\"," > $TMPDIR/.vscode/tasks.json
+                \"-fdiagnostics-color=always\",
+                \"-I\${workspaceFolder}/inc/\"," > $TMPDIR/.vscode/tasks.json
     if [ -f "$TMPDIR/lib/my/Makefile" ] || [ -f "$PWD/lib/my/Makefile" ]; then
         echo "
                 \"-L\${workspaceFolder}/lib\",
