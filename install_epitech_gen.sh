@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.3.2
+VERSION=0.3.3
 
 if [[ $EUID -ne 0 ]]; then
     echo "The installation must be run as root."
