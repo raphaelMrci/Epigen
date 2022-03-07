@@ -184,10 +184,20 @@ if [ "$add_debug_only" ]; then
         echo -e "${YELL}You asked to add only vscode debug files. Nothing else will be done due to the '-ovd' or '--only-vscode-debug' option.${NC}"
     fi
     if [ -f $PWD/Makefile ]; then
-        NAME=$(cat "$PWD/Makefile" | grep -m 1 "NAME" | tr -d ' ' | sed 's/NAME=//g')
+        NAME=$(cat "$PWD/Makefile" | grep -m 1 "NAME" | sed 's/[[:space:]]//g')
+        if [[ ${NAME:4:1} != "=" ]]; then
+            echo -e "${RED}Binary name not found. You must have a 'NAME' on your Makefile, and it needs to be the first 'NAME' declaration.${NC}"
+            read -p "Project name: " NAME
+            NAME=${NAME,,}
+            NAME=$(echo "$NAME" | sed -r 's/[ ]+/_/g')
+        else
+            NAME=${NAME#"NAME="}
+        fi
     else
         echo -e "${YELL}Your Makefile is not accessible. Impossible to know the binary's project name. Please enter it bellow:${NC}"
         read -p "Project name: " NAME
+        NAME=${NAME,,}
+        NAME=$(echo "$NAME" | sed -r 's/[ ]+/_/g')
     fi
     add_debug_files
     clean_exit
