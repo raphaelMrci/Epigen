@@ -89,7 +89,7 @@ while [ $# -ne 0 ]; do
         ;;
     esac
     shift
-    args_nb=$args_nb + 1
+    args_nb=$(($args_nb + 1))
 done
 
 if [ $do_update ]; then
