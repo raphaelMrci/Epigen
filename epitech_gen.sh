@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.3.3
+VERSION=0.3.4
 
 NC='\033[0m' # No Color
 RED='\033[0;31m'
@@ -115,6 +115,20 @@ if [ $do_update ]; then
     exit 0
 fi
 
+if [ "$add_debug_only" ]; then
+    if [ $args_nb -gt "1" ]; then
+        echo -e "${YELL}You asked to add only vscode debug files. Nothing else will be done due to the '-ovd' or '--only-vscode-debug' option.${NC}"
+    fi
+    if [ -f $PWD/Makefile ]; then
+        NAME=$(cat "$PWD/Makefile" | grep -m 1 "NAME" | tr -d ' ' | sed 's/NAME=//g')
+    else
+        echo -e "${YELL}Your Makefile is not accessible. Impossible to know the binary's project name. Please enter it bellow:${NC}"
+        read -p "Project name: " NAME
+    fi
+    add_debug_files
+    clean_exit
+fi
+
 add_debug_files() {
     mkdir $TMPDIR/.vscode
     echo "{
@@ -224,14 +238,6 @@ fi
 NAME=${NAME,,}
 NAME=$(echo "$NAME" | sed -r 's/[ ]+/_/g')
 
-if [ "$add_debug_only" ]; then
-    if [ $args_nb -gt "1" ]; then
-        echo -e "${YELL}You asked to add only vscode debug files. Nothing else will be done due to the '-ovd' or '--only-vscode-debug' option.${NC}"
-    fi
-    add_debug_files
-    clean_exit
-fi
-
 # Create all folders #
 create_all_folders() {
     mkdir $TMPDIR/src/
@@ -304,8 +310,8 @@ import_lib() {
             make -C $TMPDIR/lib/my
             make -C $TMPDIR/lib/my clean
         else
-            echo "Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help.
-Use '-il' or '--ignore-lib' to ignore lib import."
+            echo -e "${YELL}Warning: No lib path was configured. If you want to include your lib, you must use 'epigen -l lib_path'. Try with -h for help.
+Use '-il' or '--ignore-lib' to ignore lib import.${NC}"
             ignore_lib=true
         fi
     fi
