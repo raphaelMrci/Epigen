@@ -156,12 +156,10 @@ add_debug_files() {
                 \"-fdiagnostics-color=always\",
                 \"-I\${workspaceFolder}/inc/\"," > $TMPDIR/.vscode/tasks.json
     if [ -f "$TMPDIR/lib/my/Makefile" ] || [ -f "$PWD/lib/my/Makefile" ]; then
-        echo "
-                \"-L\${workspaceFolder}/lib\",
+        echo "                \"-L\${workspaceFolder}/lib\",
                 \"-lmy\"," >> $TMPDIR/.vscode/tasks.json
     fi
-    echo "
-                \"-o\",
+    echo "                \"-o\",
                 \"$NAME\"
             ],
             \"options\": {
@@ -214,7 +212,7 @@ OPTIONS:
     -vd, --vscode-debug         configure vscode debugger on project creation
     -ovd, --only-vscode-debug   configure vscode debugger even if project is already created
                                 (for C basic projects. You must ajust 'tasks.json' if you use more libraries)
-    "
+"
     exit 0
 fi
 
@@ -271,6 +269,9 @@ header_file() {
 
 #ifndef $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_
     #define $(printf '%s' "$NAME" | awk '{ print toupper($0) }')_H_" > $TMPDIR/src/$NAME.h
+    if [ -f "$TMPDIR/lib/my" ]; then
+        echo "    #include \"my.h\"" >> $TMPDIR/src/$NAME.h
+    fi
 }
 
 close_header_file() {
