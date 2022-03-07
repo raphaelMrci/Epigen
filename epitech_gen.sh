@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.3.4
+VERSION=0.3.5
 
 NC='\033[0m' # No Color
 RED='\033[0;31m'
@@ -115,20 +115,6 @@ if [ $do_update ]; then
     exit 0
 fi
 
-if [ "$add_debug_only" ]; then
-    if [ $args_nb -gt "1" ]; then
-        echo -e "${YELL}You asked to add only vscode debug files. Nothing else will be done due to the '-ovd' or '--only-vscode-debug' option.${NC}"
-    fi
-    if [ -f $PWD/Makefile ]; then
-        NAME=$(cat "$PWD/Makefile" | grep -m 1 "NAME" | tr -d ' ' | sed 's/NAME=//g')
-    else
-        echo -e "${YELL}Your Makefile is not accessible. Impossible to know the binary's project name. Please enter it bellow:${NC}"
-        read -p "Project name: " NAME
-    fi
-    add_debug_files
-    clean_exit
-fi
-
 add_debug_files() {
     mkdir $TMPDIR/.vscode
     echo "{
@@ -192,6 +178,20 @@ add_debug_files() {
     \"version\": \"2.0.0\"
 }" >> $TMPDIR/.vscode/tasks.json
 }
+
+if [ "$add_debug_only" ]; then
+    if [ $args_nb -gt "1" ]; then
+        echo -e "${YELL}You asked to add only vscode debug files. Nothing else will be done due to the '-ovd' or '--only-vscode-debug' option.${NC}"
+    fi
+    if [ -f $PWD/Makefile ]; then
+        NAME=$(cat "$PWD/Makefile" | grep -m 1 "NAME" | tr -d ' ' | sed 's/NAME=//g')
+    else
+        echo -e "${YELL}Your Makefile is not accessible. Impossible to know the binary's project name. Please enter it bellow:${NC}"
+        read -p "Project name: " NAME
+    fi
+    add_debug_files
+    clean_exit
+fi
 
 if [ $csfml_project ] && [ $python_project ]; then
     echo -e "${RED}Multiple projects types defined. You can't specify more than 1 project type.${NC}"
