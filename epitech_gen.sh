@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.3.0
+VERSION=0.3.1
 
 NC='\033[0m' # No Color
 RED='\033[0;31m'
@@ -154,7 +154,7 @@ add_debug_files() {
                 \"-g\",
                 \"\${workspaceFolder}/src/*.c\",
                 \"-fdiagnostics-color=always\"," > $TMPDIR/.vscode/tasks.json
-    if [ -f "$PWD/lib/my/Makefile" ]; then
+    if [ -f "$TMPDIR/lib/my/Makefile" ] || [ -f "$PWD/lib/my/Makefile" ]; then
         echo "
                 \"-L\${workspaceFolder}/lib\",
                 \"-lmy\"," >> $TMPDIR/.vscode/tasks.json
